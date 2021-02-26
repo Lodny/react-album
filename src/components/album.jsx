@@ -61,7 +61,9 @@ const Album = ({ history, user }) => {
     if (albumId !== id) return;
 
     const photos = albums.find((album) => album.id === albumId).photos;
-    const list = photos.map((photo) => <img src={photo.thumbnailUrl} key={photo.id} alt={photo.title} />);
+    const list = photos.map((photo) => (
+      <img src={photo.thumbnailUrl} key={photo.id} alt={photo.title} />
+    ));
 
     return <div className="row">{list}</div>;
   };
@@ -72,10 +74,17 @@ const Album = ({ history, user }) => {
     console.log("getAlbums()");
 
     return albums.map((album) => {
-      const classes = `list-group-item list-group-item-action ${album.id === albumId ? "active" : ""}`;
+      const classes = `list-group-item list-group-item-action ${
+        album.id === albumId ? "active" : ""
+      }`;
 
       return (
-        <button type="button" className={classes} key={album.id} onClick={() => handleClick(album.id)}>
+        <button
+          type="button"
+          className={classes}
+          key={album.id}
+          onClick={() => handleClick(album.id)}
+        >
           {album.title}
         </button>
       );
@@ -83,12 +92,12 @@ const Album = ({ history, user }) => {
   };
 
   return (
-    <div className="row">
-      <div className="col-sm-4 ml-4">
+    <div className="d-flex">
+      <div className="col-md-4 ml-4">
         <h3>Album List</h3>
         <div className="list-group">{getAlbums()}</div>
       </div>
-      <div className="col-sm-7">{getPhotos(albumId)}</div>
+      <div className="col-md-7">{getPhotos(albumId)}</div>
     </div>
   );
 };
