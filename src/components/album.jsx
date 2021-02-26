@@ -6,16 +6,16 @@ const Album = ({ history, user }) => {
   // console.log("location : ", location);
   // console.log("userId : ", userId);
 
-  if (user.id <= 0) {
-    history.push("/login");
-    return "";
-  }
-
   const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(false);
   const [albumId, setAlbumId] = useState(0);
 
   useEffect(() => {
+    if (user.id <= 0) {
+      history.push("/login");
+      return "";
+    }
+
     fetch(`https://jsonplaceholder.typicode.com/users/${user.id}/albums`)
       .then((response) => response.json())
       .then((json) => {
@@ -25,6 +25,11 @@ const Album = ({ history, user }) => {
         setLoading(true);
       });
   }, []);
+
+  if (user.id <= 0) {
+    history.push("/login");
+    return "";
+  }
 
   const handleClick = (id) => {
     console.log("Album : handleClick() : id : ", id);
